@@ -7,4 +7,4 @@ var UserDashboard = () => {
   )
 }
 
-export defaul UserDashboard;
+export default UserDashboard;

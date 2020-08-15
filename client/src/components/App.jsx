@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import UserLogin from './UserLogin.jsx';
+import UserDashboard from './UserDashboard.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +10,6 @@ class App extends React.Component {
       username: '',
       password: '',
       isVerifiedUser: false,
-      currentUser: null,
     }
 
     this.handleUser = this.handleUser.bind(this);
@@ -21,8 +21,10 @@ class App extends React.Component {
     //get data for news, update info, and/or components not requiring user login...
   };
 
-  componentDidUpdate() {
-
+  componentDidUpdate(prevState) {
+    if (prevState.isVerifiedUser !== this.state.isVerifiedUser) {
+      console.log('CDU working....')
+    }
   };
 
   handleUser(e) {
@@ -38,7 +40,6 @@ class App extends React.Component {
   };
 
   handleLogin(e) {
-    console.log(this.state.username, this.state.password)
     axios.post('http://localhost:3000/newUser', ({ username: this.state.username, password: this.state.password }))
   };
 
@@ -49,8 +50,10 @@ class App extends React.Component {
           <h1>App Name</h1>
           <UserLogin handleUser={this.handleUser} handlePass={this.handlePass} handleLogin={this.handleLogin}  />
         </div>
-
       );
+    }
+    if (this.state.isVerifiedUser === true) {
+      <UserDashboard />
     }
   };
 };
