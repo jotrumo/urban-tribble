@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import UserLogin from './UserLogin.jsx';
 
 class App extends React.Component {
@@ -7,6 +8,8 @@ class App extends React.Component {
     this.state = {
       username: '',
       password: '',
+      isVerifiedUser: false,
+      currentUser: null,
     }
 
     this.handleUser = this.handleUser.bind(this);
@@ -15,7 +18,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-
+    //get data for news, update info, and/or components not requiring user login...
   };
 
   componentDidUpdate() {
@@ -35,17 +38,20 @@ class App extends React.Component {
   };
 
   handleLogin(e) {
-    console.log('Login working...');
+    console.log(this.state.username, this.state.password)
+    axios.post('http://localhost:3000/newUser', ({ username: this.state.username, password: this.state.password }))
   };
 
   render() {
-    return(
-      <div>
-        <h1>App Name</h1>
-        <UserLogin handleUser={this.handleUser} handlePass={this.handlePass} handleLogin={this.handleLogin}  />
-      </div>
+    if (this.state.isVerifiedUser === false) {
+      return(
+        <div>
+          <h1>App Name</h1>
+          <UserLogin handleUser={this.handleUser} handlePass={this.handlePass} handleLogin={this.handleLogin}  />
+        </div>
 
-    );
+      );
+    }
   };
 };
 

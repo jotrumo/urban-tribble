@@ -4,7 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
-    "server:dev":"nodemon ./server/index.js",
+    "server:dev": "nodemon ./server/index.js",
     "react:dev": "webpack-cli -d --watch"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/jotrumo/urban-tribble#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
