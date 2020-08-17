@@ -10,6 +10,7 @@ class App extends React.Component {
       username: '',
       password: '',
       isVerifiedUser: false,
+      isLoaded: false,
     }
 
     this.handleUser = this.handleUser.bind(this);
@@ -22,8 +23,10 @@ class App extends React.Component {
   };
 
   componentDidUpdate(prevState) {
-    if (prevState.isVerifiedUser !== this.state.isVerifiedUser) {
-      console.log('CDU working....')
+    if (prevState !== this.state.isVerifiedUser && this.state.isVerifiedUser === true) {
+      this.setState({
+        isLoaded: true,
+      })
     }
   };
 
@@ -40,11 +43,14 @@ class App extends React.Component {
   };
 
   handleLogin(e) {
-    axios.post('http://localhost:3000/newUser', ({ username: this.state.username, password: this.state.password }))
+    this.setState({
+      isVerifiedUser: true,
+    })
+    // axios.post('http://localhost:3000/newUser', ({ username: this.state.username, password: this.state.password }))
   };
 
   render() {
-    if (this.state.isVerifiedUser === false) {
+    if (this.state.isLoaded === false) {
       return(
         <div>
           <h1>App Name</h1>
@@ -52,7 +58,7 @@ class App extends React.Component {
         </div>
       );
     }
-    if (this.state.isVerifiedUser === true) {
+    if (this.state.isLoaded === true) {
       <UserDashboard />
     }
   };
